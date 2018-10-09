@@ -1,0 +1,44 @@
+﻿@model IEnumerable<Grademeter_Assignment1.Models.Grade>
+
+@{
+    ViewBag.Title = "Grades";
+}
+
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.GradeName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Section)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Remarks)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.GradeName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Section)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Remarks)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.GradeID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.GradeID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.GradeID })
+        </td>
+    </tr>
+}
+
+</table>
