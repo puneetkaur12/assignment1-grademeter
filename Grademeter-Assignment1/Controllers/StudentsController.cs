@@ -12,10 +12,9 @@ namespace Grademeter_Assignment1.Controllers
 {
     public class StudentsController : Controller
     {
-        private GrademeterModel db = new GrademeterModel();
+        private grademeter_databaseEntities db = new grademeter_databaseEntities();
 
-       [AllowAnonymous]
-       // GET: Students
+        // GET: Students
         public ActionResult Index()
         {
             var students = db.Students.Include(s => s.Grade);
@@ -37,7 +36,6 @@ namespace Grademeter_Assignment1.Controllers
             return View(student);
         }
 
-        [Authorize]
         // GET: Students/Create
         public ActionResult Create()
         {
@@ -49,7 +47,6 @@ namespace Grademeter_Assignment1.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [Authorize]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "StudentID,FirstName,LastName,Age,GradeID")] Student student)
         {
@@ -64,7 +61,6 @@ namespace Grademeter_Assignment1.Controllers
             return View(student);
         }
 
-        [Authorize]
         // GET: Students/Edit/5
         public ActionResult Edit(int? id)
         {
@@ -85,7 +81,6 @@ namespace Grademeter_Assignment1.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [Authorize]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "StudentID,FirstName,LastName,Age,GradeID")] Student student)
         {
@@ -99,7 +94,6 @@ namespace Grademeter_Assignment1.Controllers
             return View(student);
         }
 
-        [Authorize]
         // GET: Students/Delete/5
         public ActionResult Delete(int? id)
         {
@@ -115,7 +109,6 @@ namespace Grademeter_Assignment1.Controllers
             return View(student);
         }
 
-        [Authorize]
         // POST: Students/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
