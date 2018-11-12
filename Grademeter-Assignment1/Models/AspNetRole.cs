@@ -6,27 +6,21 @@ namespace Grademeter_Assignment1.Models
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
 
-    public partial class Grade
+    public partial class AspNetRole
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Grade()
+        public AspNetRole()
         {
-            Students = new HashSet<Student>();
+            AspNetUsers = new HashSet<AspNetUser>();
         }
 
-        public int GradeID { get; set; }
+        public string Id { get; set; }
 
         [Required]
-        [StringLength(255)]
-        public string GradeName { get; set; }
-
-        [StringLength(255)]
-        public string Section { get; set; }
-
-        [StringLength(255)]
-        public string Remarks { get; set; }
+        [StringLength(256)]
+        public string Name { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Student> Students { get; set; }
+        public virtual ICollection<AspNetUser> AspNetUsers { get; set; }
     }
 }

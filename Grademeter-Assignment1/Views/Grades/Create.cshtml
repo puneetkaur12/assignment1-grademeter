@@ -1,8 +1,10 @@
 ﻿@model Grademeter_Assignment1.Models.Grade
 
 @{
-    ViewBag.Title = "Add New Grade";
+    ViewBag.Title = "Create";
 }
+
+<h2>Create</h2>
 
 
 @using (Html.BeginForm()) 
@@ -10,6 +12,7 @@
     @Html.AntiForgeryToken()
     
     <div class="form-horizontal">
+        <h4>Grade</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div class="form-group">

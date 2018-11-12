@@ -58,11 +58,11 @@ namespace Grademeter_Assignment1
             //   appId: "",
             //   appSecret: "");
 
-            //app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
-            //{
-            //    ClientId = "",
-            //    ClientSecret = ""
-            //});
+            app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
+            {
+                ClientId = "304920063917-h3mmu0itrd0eb3ihn1g2ag8oa107pb4n.apps.googleusercontent.com",
+                ClientSecret = "NInE66vOS1YELnLKSvdwYNRV"
+            });
         }
     }
 }
