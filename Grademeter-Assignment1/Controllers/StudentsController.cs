@@ -12,10 +12,10 @@ namespace Grademeter_Assignment1.Controllers
 {
     public class StudentsController : Controller
     {
-        private grademeter_databaseEntities db = new grademeter_databaseEntities();
+        private GrademeterModel db = new GrademeterModel();
 
-        [AllowAnonymous]
-        // GET: Students
+       [AllowAnonymous]
+       // GET: Students
         public ActionResult Index()
         {
             var students = db.Students.Include(s => s.Grade);
@@ -115,9 +115,9 @@ namespace Grademeter_Assignment1.Controllers
             return View(student);
         }
 
+        [Authorize]
         // POST: Students/Delete/5
         [HttpPost, ActionName("Delete")]
-        [Authorize]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {

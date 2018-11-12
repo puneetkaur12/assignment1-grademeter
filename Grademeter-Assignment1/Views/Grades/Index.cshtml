@@ -1,13 +1,17 @@
 ﻿@model IEnumerable<Grademeter_Assignment1.Models.Grade>
 
 @{
-    ViewBag.Title = "Grades";
+    ViewBag.Title = "Index";
 }
 
+<h2>Index</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
+@if (User.Identity.IsAuthenticated)
+{
+    <p>
+        @Html.ActionLink("Create New", "Create")
+    </p>
+}
 <table class="table">
     <tr>
         <th>
@@ -22,7 +26,8 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
+    @foreach (var item in Model)
+    {
     <tr>
         <td>
             @Html.DisplayFor(modelItem => item.GradeName)
@@ -33,15 +38,15 @@
         <td>
             @Html.DisplayFor(modelItem => item.Remarks)
         </td>
-        <td>
-            @if (User.Identity.IsAuthenticated)
-            {
+        @if (User.Identity.IsAuthenticated)
+        {
+            <td>
                 @Html.ActionLink("Edit", "Edit", new { id = item.GradeID }) |
                 @Html.ActionLink("Details", "Details", new { id = item.GradeID }) |
                 @Html.ActionLink("Delete", "Delete", new { id = item.GradeID })
-            }
-        </td>
+            </td>
+        }
     </tr>
-}
+    }
 
 </table>

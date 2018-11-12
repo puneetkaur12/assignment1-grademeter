@@ -12,7 +12,7 @@ namespace Grademeter_Assignment1.Controllers
 {
     public class GradesController : Controller
     {
-        private grademeter_databaseEntities db = new grademeter_databaseEntities();
+        private GrademeterModel db = new GrademeterModel();
 
         [AllowAnonymous]
         // GET: Grades
@@ -42,6 +42,7 @@ namespace Grademeter_Assignment1.Controllers
         {
             return View();
         }
+
 
         // POST: Grades/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
