@@ -14,6 +14,7 @@ namespace Grademeter_Assignment1.Controllers
     {
         private grademeter_databaseEntities db = new grademeter_databaseEntities();
 
+        [AllowAnonymous]
         // GET: Grades
         public ActionResult Index()
         {
@@ -35,6 +36,7 @@ namespace Grademeter_Assignment1.Controllers
             return View(grade);
         }
 
+        [Authorize]
         // GET: Grades/Create
         public ActionResult Create()
         {
@@ -45,6 +47,7 @@ namespace Grademeter_Assignment1.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
+        [Authorize]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "GradeID,GradeName,Section,Remarks")] Grade grade)
         {
@@ -58,6 +61,7 @@ namespace Grademeter_Assignment1.Controllers
             return View(grade);
         }
 
+        [Authorize]
         // GET: Grades/Edit/5
         public ActionResult Edit(int? id)
         {
@@ -77,6 +81,7 @@ namespace Grademeter_Assignment1.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
+        [Authorize]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "GradeID,GradeName,Section,Remarks")] Grade grade)
         {
@@ -89,6 +94,7 @@ namespace Grademeter_Assignment1.Controllers
             return View(grade);
         }
 
+        [Authorize]
         // GET: Grades/Delete/5
         public ActionResult Delete(int? id)
         {
@@ -106,6 +112,7 @@ namespace Grademeter_Assignment1.Controllers
 
         // POST: Grades/Delete/5
         [HttpPost, ActionName("Delete")]
+        [Authorize]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
