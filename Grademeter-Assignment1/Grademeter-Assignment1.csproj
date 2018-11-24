@@ -210,9 +210,11 @@
     <Compile Include="Models\AspNetUserClaim.cs" />
     <Compile Include="Models\AspNetUserLogin.cs" />
     <Compile Include="Models\C__MigrationHistory.cs" />
+    <Compile Include="Models\EFGrades.cs" />
     <Compile Include="Models\Grade.cs" />
     <Compile Include="Models\GrademeterModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Models\IGradesMock.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\Student.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
