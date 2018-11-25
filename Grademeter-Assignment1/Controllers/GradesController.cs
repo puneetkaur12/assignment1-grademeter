@@ -39,7 +39,7 @@ namespace Grademeter_Assignment1.Controllers
             if (id == null)
             {
                 // return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-                c
+                
             }
             Grade grade = db.Grades.SingleOrDefault(x=>x.GradeID==id);
             if (grade == null)
@@ -90,9 +90,9 @@ namespace Grademeter_Assignment1.Controllers
             return View("Edit",grade);
         }
 
-        POST: Grades/Edit/5
-         To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-         more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        //POST: Grades/Edit/5
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [Authorize]
         [ValidateAntiForgeryToken]
@@ -100,11 +100,10 @@ namespace Grademeter_Assignment1.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Entry(grade).State = EntityState.Modified;
-                db.SaveChanges();
+                db.Save(grade);
                 return RedirectToAction("Index");
             }
-            return View(grade);
+            return View("Edit",grade);
         }
 
         [Authorize]
@@ -127,19 +126,24 @@ namespace Grademeter_Assignment1.Controllers
         [HttpPost, ActionName("Delete")]
         [Authorize]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
+        public ActionResult DeleteConfirmed(int? id)
         {
-           
+            if (id == null)
+            {
+                return View("Error");
+
+            }
+            var grade = db.Grades.SingleOrDefault(x => x.GradeID == id);
+            if (grade == null)
+            {
+                return View("Error");
+
+            }
+            db.Delete(grade);
+
             return RedirectToAction("Index");
         }
 
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                db.Dispose();
-            }
-            base.Dispose(disposing);
-        }
+       
     }
 }

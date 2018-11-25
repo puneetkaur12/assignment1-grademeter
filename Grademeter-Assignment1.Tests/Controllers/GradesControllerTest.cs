@@ -14,15 +14,19 @@ namespace Grademeter_Assignment1.Tests.Controllers
     [TestClass]
     public class GradesControllerTest
     {
+
+        #region Local Variables Declaration
         Mock<IGradesMock> mock;
         List<Grade> grades;
         GradesController controller;
+        #endregion
+
+
+        #region Test Properties Initialization
         [TestInitialize]
         public void TestInitialize()
         {
-
             mock = new Mock<IGradesMock>();
-
             grades = new List<Grade>
             {
                 new Grade{ GradeID=1001, GradeName="A", Section="B-21", Remarks="Good Work"  },
@@ -31,13 +35,15 @@ namespace Grademeter_Assignment1.Tests.Controllers
             mock.Setup(m => m.Grades).Returns(grades.AsQueryable());
             controller = new GradesController(mock.Object);
         }
+        #endregion
+
+
+
         #region Unit Test Cases For /Grades/ Index Views 
         [TestMethod]
         public void IndexReturnsView()
         {
-         
             ViewResult result=controller.Index() as ViewResult;
-
             Assert.AreEqual("Index", result.ViewName);
         }
         [TestMethod]
@@ -47,6 +53,7 @@ namespace Grademeter_Assignment1.Tests.Controllers
             CollectionAssert.AreEqual(grades, actual);
         }
         #endregion
+
 
         #region Unit Test Cases For /Grades/Details 
         [TestMethod]
@@ -72,10 +79,10 @@ namespace Grademeter_Assignment1.Tests.Controllers
         {
             Grade result = (Grade)((ViewResult)controller.Details(1001)).Model;
             Assert.AreEqual(grades[0], result);
-
         }
         #endregion
 
+        #region Unit Test Cases For GET: /Grade/Edit View
         [TestMethod]
         public void Edit_NoId()
         {
@@ -94,50 +101,46 @@ namespace Grademeter_Assignment1.Tests.Controllers
         {
             Grade actual = (Grade)((ViewResult)controller.Edit(1001)).Model;
             Assert.AreEqual(grades[0], actual);
-
         }
+        #endregion
 
-
-
-
-
+        #region Unit Test Cases For GET: /Grade/Create View
         [TestMethod]
         public void Create_ViewLoads()
         {
-            var result=(ViewResult)controller.Create();
-            Assert.AreEqual("Edit", result.ViewName);
+            var result = (ViewResult)controller.Create();
+            Assert.AreEqual("Create", result.ViewName);
         }
+        #endregion
 
+        #region Unit Test Cases For GET: /Grade/Delete View
         [TestMethod]
         public void Delete_NoId()
         {
             var result = (ViewResult)controller.Delete(null);
             Assert.AreEqual("Error", result.ViewName);
-
         }
-
         [TestMethod]
         public void Delete_InvalidId()
         {
             var result = (ViewResult)controller.Delete(2000);
             Assert.AreEqual("Error", result.ViewName);
-
         }
         [TestMethod]
         public void Delete_ValidId_LoadsView()
         {
             var result = (ViewResult)controller.Delete(1001);
             Assert.AreEqual("Delete", result.ViewName);
-
         }
         [TestMethod]
         public void Delete_ValidId_LoadsModel()
         {
             Grade actual = (Grade)((ViewResult)controller.Delete(1001)).Model;
-            Assert.AreEqual(grades[0],actual);
-
+            Assert.AreEqual(grades[0], actual);
         }
+        #endregion
 
+        #region Unit Test Cases For POST: Grade/Edit
         [TestMethod]
         public void EditPostGrade_LoadsIndex()
         {
@@ -152,7 +155,6 @@ namespace Grademeter_Assignment1.Tests.Controllers
             controller.ModelState.AddModelError("Error", "It'll Not Save");
             ViewResult result = (ViewResult)controller.Edit(id);
             Assert.AreEqual("Edit", result.ViewName);
-
         }
 
         [TestMethod]
@@ -162,9 +164,10 @@ namespace Grademeter_Assignment1.Tests.Controllers
             controller.ModelState.AddModelError("Error", "It'll Not Save");
             Grade result = (Grade)((ViewResult)controller.Edit(id)).Model;
             Assert.AreEqual(id, result);
-
         }
+        #endregion
 
+        #region Unit Test Cases For POST: /Grade/Create
         [TestMethod]
         public void Create_ValidGrade()
         {
@@ -175,7 +178,7 @@ namespace Grademeter_Assignment1.Tests.Controllers
                 Section = "B21",
                 Remarks = "Average"
             };
-             RedirectToRouteResult result = (RedirectToRouteResult)controller.Create(newGrade);
+            RedirectToRouteResult result = (RedirectToRouteResult)controller.Create(newGrade);
             Assert.AreEqual("Index", result.RouteValues["action"]);
         }
 
@@ -187,5 +190,32 @@ namespace Grademeter_Assignment1.Tests.Controllers
             ViewResult result = (ViewResult)controller.Create(newGrade);
             Assert.AreEqual("Create", result.ViewName);
         }
+        #endregion
+
+        #region Unit Test Cases For POST: /Grade/DeleteConfirmed
+        [TestMethod]
+        public void Delete_Confirmed_NoId()
+        {
+            ViewResult result = (ViewResult)controller.DeleteConfirmed(null);
+            Assert.AreEqual("Error", result.ViewName);
+        }
+
+        [TestMethod]
+        public void Delete_Confirmed_InvalidId()
+        {
+            ViewResult result = (ViewResult)controller.DeleteConfirmed(2002);
+            Assert.AreEqual("Error", result.ViewName);
+        }
+
+        [TestMethod]
+        public void Delete_Confirmed_validId()
+        {
+            RedirectToRouteResult result = (RedirectToRouteResult)controller.DeleteConfirmed(1001);
+            Assert.AreEqual("Index", result.RouteValues["action"]);
+        }
+        #endregion
+
+
+
     }
 }
