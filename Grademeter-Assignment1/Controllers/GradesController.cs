@@ -33,32 +33,33 @@ namespace Grademeter_Assignment1.Controllers
             return View("Index",grades);
         }
 
-        //// GET: Grades/Details/5
-        //public ActionResult Details(int? id)
-        //{
-        //    if (id == null)
-        //    {
-        //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-        //    }
-        //    Grade grade = db.Grades.Find(id);
-        //    if (grade == null)
-        //    {
-        //        return HttpNotFound();
-        //    }
-        //    return View(grade);
-        //}
+        // GET: Grades/Details/5
+        public ActionResult Details(int? id)
+        {
+            if (id == null)
+            {
+                // return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                c
+            }
+            Grade grade = db.Grades.SingleOrDefault(x=>x.GradeID==id);
+            if (grade == null)
+            {
+                return View("Error");
+            }
+            return View("Details",grade);
+        }
 
-        //[Authorize]
-        //// GET: Grades/Create
-        //public ActionResult Create()
-        //{
-        //    return View();
-        //}
+        [Authorize]
+        // GET: Grades/Create
+        public ActionResult Create()
+        {
+            return View("Create");
+        }
 
 
-        //// POST: Grades/Create
-        //// To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        //// more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        // POST: Grades/Create
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         //[HttpPost]
         //[Authorize]
         //[ValidateAntiForgeryToken]
@@ -74,54 +75,54 @@ namespace Grademeter_Assignment1.Controllers
         //    return View(grade);
         //}
 
-        //[Authorize]
-        //// GET: Grades/Edit/5
-        //public ActionResult Edit(int? id)
-        //{
-        //    if (id == null)
-        //    {
-        //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-        //    }
-        //    Grade grade = db.Grades.Find(id);
-        //    if (grade == null)
-        //    {
-        //        return HttpNotFound();
-        //    }
-        //    return View(grade);
-        //}
+        [Authorize]
+        // GET: Grades/Edit/5
+        public ActionResult Edit(int? id)
+        {
+            if (id == null)
+            {
+                return View("Error");
+            }
+            Grade grade = db.Grades.SingleOrDefault(x=>x.GradeID==id);
+            if (grade == null)
+            {
+                return View("Error");
+            }
+            return View("Edit",grade);
+        }
 
-        //// POST: Grades/Edit/5
-        //// To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        //// more details see https://go.microsoft.com/fwlink/?LinkId=317598.
-        //[HttpPost]
-        //[Authorize]
-        //[ValidateAntiForgeryToken]
-        //public ActionResult Edit([Bind(Include = "GradeID,GradeName,Section,Remarks")] Grade grade)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        db.Entry(grade).State = EntityState.Modified;
-        //        db.SaveChanges();
-        //        return RedirectToAction("Index");
-        //    }
-        //    return View(grade);
-        //}
+        POST: Grades/Edit/5
+         To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+         more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [Authorize]
+        [ValidateAntiForgeryToken]
+        public ActionResult Edit([Bind(Include = "GradeID,GradeName,Section,Remarks")] Grade grade)
+        {
+            if (ModelState.IsValid)
+            {
+                db.Entry(grade).State = EntityState.Modified;
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            return View(grade);
+        }
 
-        //[Authorize]
-        //// GET: Grades/Delete/5
-        //public ActionResult Delete(int? id)
-        //{
-        //    if (id == null)
-        //    {
-        //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-        //    }
-        //    Grade grade = db.Grades.Find(id);
-        //    if (grade == null)
-        //    {
-        //        return HttpNotFound();
-        //    }
-        //    return View(grade);
-        //}
+        [Authorize]
+        // GET: Grades/Delete/5
+        public ActionResult Delete(int? id)
+        {
+            if (id == null)
+            {
+                return View("Error");
+            }
+            Grade grade = db.Grades.SingleOrDefault(x=>x.GradeID==id);
+            if (grade == null)
+            {
+                return View("Error");
+            }
+            return View("Delete",grade);
+        }
 
         //// POST: Grades/Delete/5
         //[HttpPost, ActionName("Delete")]
