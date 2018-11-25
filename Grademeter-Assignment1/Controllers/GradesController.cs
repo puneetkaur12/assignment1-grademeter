@@ -60,20 +60,19 @@ namespace Grademeter_Assignment1.Controllers
         // POST: Grades/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
-        //[HttpPost]
-        //[Authorize]
-        //[ValidateAntiForgeryToken]
-        //public ActionResult Create([Bind(Include = "GradeID,GradeName,Section,Remarks")] Grade grade)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        db.Grades.Add(grade);
-        //        db.SaveChanges();
-        //        return RedirectToAction("Index");
-        //    }
+        [HttpPost]
+        [Authorize]
+        [ValidateAntiForgeryToken]
+        public ActionResult Create([Bind(Include = "GradeID,GradeName,Section,Remarks")] Grade grade)
+        {
+            if (ModelState.IsValid)
+            {
+                db.Save(grade);
+                return RedirectToAction("Index");
+            }
 
-        //    return View(grade);
-        //}
+            return View("Create",grade);
+        }
 
         [Authorize]
         // GET: Grades/Edit/5
@@ -125,24 +124,22 @@ namespace Grademeter_Assignment1.Controllers
         }
 
         //// POST: Grades/Delete/5
-        //[HttpPost, ActionName("Delete")]
-        //[Authorize]
-        //[ValidateAntiForgeryToken]
-        //public ActionResult DeleteConfirmed(int id)
-        //{
-        //    Grade grade = db.Grades.Find(id);
-        //    db.Grades.Remove(grade);
-        //    db.SaveChanges();
-        //    return RedirectToAction("Index");
-        //}
+        [HttpPost, ActionName("Delete")]
+        [Authorize]
+        [ValidateAntiForgeryToken]
+        public ActionResult DeleteConfirmed(int id)
+        {
+           
+            return RedirectToAction("Index");
+        }
 
-        //protected override void Dispose(bool disposing)
-        //{
-        //    if (disposing)
-        //    {
-        //        db.Dispose();
-        //    }
-        //    base.Dispose(disposing);
-        //}
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                db.Dispose();
+            }
+            base.Dispose(disposing);
+        }
     }
 }

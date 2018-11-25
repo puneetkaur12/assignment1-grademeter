@@ -134,15 +134,58 @@ namespace Grademeter_Assignment1.Tests.Controllers
         public void Delete_ValidId_LoadsModel()
         {
             Grade actual = (Grade)((ViewResult)controller.Delete(1001)).Model;
-            Assert.AreEqual(grades[0], sactual);
+            Assert.AreEqual(grades[0],actual);
 
         }
 
         [TestMethod]
-        public void EditGrade_LoadsIndex()
+        public void EditPostGrade_LoadsIndex()
         {
             RedirectToRouteResult result = (RedirectToRouteResult)controller.Edit(grades[0]);
+            Assert.AreEqual("Index", result.RouteValues["action"]);
+        }
 
+        [TestMethod]
+        public void EditPost_InvalidLoadView()
+        {
+            Grade id = new Grade { GradeID = 2001 };
+            controller.ModelState.AddModelError("Error", "It'll Not Save");
+            ViewResult result = (ViewResult)controller.Edit(id);
+            Assert.AreEqual("Edit", result.ViewName);
+
+        }
+
+        [TestMethod]
+        public void EditPost_InvalidLoadGrade()
+        {
+            Grade id = new Grade { GradeID = 1001 };
+            controller.ModelState.AddModelError("Error", "It'll Not Save");
+            Grade result = (Grade)((ViewResult)controller.Edit(id)).Model;
+            Assert.AreEqual(id, result);
+
+        }
+
+        [TestMethod]
+        public void Create_ValidGrade()
+        {
+            Grade newGrade = new Grade
+            {
+                GradeID = 1003,
+                GradeName = "B",
+                Section = "B21",
+                Remarks = "Average"
+            };
+             RedirectToRouteResult result = (RedirectToRouteResult)controller.Create(newGrade);
+            Assert.AreEqual("Index", result.RouteValues["action"]);
+        }
+
+        [TestMethod]
+        public void Create_InValidGrade()
+        {
+            Grade newGrade = new Grade();
+            controller.ModelState.AddModelError("Unable To Create Grade", "Grade Creation Exception");
+            ViewResult result = (ViewResult)controller.Create(newGrade);
+            Assert.AreEqual("Create", result.ViewName);
         }
     }
 }
